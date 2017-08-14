@@ -1,0 +1,5 @@
+{
+   "name": "ahebrank/wp-frontback",
+   "type": "wordpress-plugin",
+   "description": "Frontback issue reporting widget integration"
+}
