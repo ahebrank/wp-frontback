@@ -65,6 +65,14 @@ class FrontbackSettings {
           'frontback-setting-admin',
           'frontback_options_main'
       );
+
+      add_settings_field(
+          'login_required',
+          'Show only for logged-in users',
+          array( $this, 'logged_in_callback' ),
+          'frontback-setting-admin',
+          'frontback_options_main'
+      );
   }
   
   /**
@@ -82,6 +90,13 @@ class FrontbackSettings {
       printf(
           '<input type="text" id="endpoint" name="frontback_options[endpoint]" value="%s" />',
           isset( $this->options['endpoint'] ) ? esc_attr( $this->options['endpoint']) : ''
+      );
+  }
+  public function logged_in_callback()
+  {
+      $check_state = isset( $this->options['login_required'] ) ? $this->options['login_required'] : false;
+      printf(
+          '<input type="checkbox" id="login_required" name="frontback_options[login_required]" value="1"' . checked( 1, $check_state, false) . ' />'
       );
   }
 
