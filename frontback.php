@@ -23,7 +23,7 @@ function frontback_add_js() {
   $options = get_option('frontback_options');
   if (!isset($options['repo_id']) || empty($options['repo_id'])) return;
   if (!isset($options['endpoint']) || empty($options['endpoint'])) return;
-  if (!is_user_logged_in()) return;
+  if (!is_user_logged_in() && isset($options['login_required'])) return;
   
   $version = (time() - (time()%600)); // 10-min cache buster
   require_once(FRONTBACK_ABSPATH . 'snippet.inc');
