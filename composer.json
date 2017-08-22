@@ -1,8 +1,5 @@
 {
-    "name": "ahebrank/acf-flexible-link",
-    "type": "wordpress-plugin",
-    "require": {
-        "composer/installers": "v1.3.0",
-        "php": ">=5.4.0"
-    }
+   "name": "ahebrank/wp-frontback",
+   "type": "wordpress-plugin",
+   "description": "Frontback issue reporting widget integration"
 }
