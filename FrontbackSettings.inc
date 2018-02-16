@@ -53,35 +53,67 @@ class FrontbackSettings {
       add_settings_field(
           'repo_id', // ID
           'Repository identifier', // Title
-          array( $this, 'repo_id_callback' ), // Callback
+          array( $this, 'string_input_callback' ), // Callback
           'frontback-setting-admin', // Page
-          'frontback_options_main' // Section
+          'frontback_options_main', // Section
+          array( 'id' => 'repo_id' )
       );
 
       add_settings_field(
           'endpoint',
           'Endpoint',
-          array( $this, 'endpoint_callback' ),
+          array( $this, 'string_input_callback' ),
           'frontback-setting-admin',
-          'frontback_options_main'
+          'frontback_options_main',
+          array( 'id' => 'endpoint' )
+      );
+
+      add_settings_field(
+        'hideButton',
+        'Hide Button',
+        array( $this, 'boolean_input_callback' ),
+        'frontback-setting-admin',
+        'frontback_options_main',
+        array( 'id' => 'hideButton' )
+      );
+
+      add_settings_field(
+        'hideReporterOptions',
+        'Hide reporter dropdown',
+        array( $this, 'boolean_input_callback' ),
+        'frontback-setting-admin',
+        'frontback_options_main',
+        array( 'id' => 'hideReporterOptions' )
+      );
+
+      add_settings_field(
+        'hideAssigneeOptions',
+        'Hide assignees',
+        array( $this, 'boolean_input_callback' ),
+        'frontback-setting-admin',
+        'frontback_options_main',
+        array( 'id' => 'hideAssigneeOptions' )
       );
   }
   
   /**
     * field callbacks
     **/
-  public function repo_id_callback()
+  public function string_input_callback($args)
   {
       printf(
-          '<input type="text" id="repo_id" name="frontback_options[repo_id]" value="%s" />',
-          isset( $this->options['repo_id'] ) ? esc_attr( $this->options['repo_id']) : ''
+          '<input type="text" id="%s" name="frontback_options[%s]" value="%s" />',
+          $args['id'], $args['id'],
+          isset( $this->options[$args['id']] ) ? esc_attr( $this->options[$args['id']]) : ''
       );
   }
-  public function endpoint_callback()
+
+  public function boolean_input_callback($args)
   {
       printf(
-          '<input type="text" id="endpoint" name="frontback_options[endpoint]" value="%s" />',
-          isset( $this->options['endpoint'] ) ? esc_attr( $this->options['endpoint']) : ''
+          '<input type="checkbox" id="%s" name="frontback_options[%s]" value="1" %s/>',
+          $args['id'], $args['id'],
+          isset( $this->options[$args['id']] ) && $this->options[$args['id']] ? 'checked="checked"' : ''
       );
   }
 

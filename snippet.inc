@@ -2,7 +2,8 @@
   (function() {
     window.frontback = {
       repo: '<?=$options['repo_id']?>',
-      postUrl: '<?=$options['endpoint']?>'
+      postUrl: '<?=$options['endpoint']?>',
+      options: <?=$opts?>,
     };
     var frontbackVersion = '<?=$version?>';
 

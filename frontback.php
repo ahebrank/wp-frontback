@@ -24,6 +24,16 @@ function frontback_add_js() {
   if (!isset($options['repo_id']) || empty($options['repo_id'])) return;
   if (!isset($options['endpoint']) || empty($options['endpoint'])) return;
   if (!is_user_logged_in()) return;
+
+  $opts = array(
+    'hideButton' => FALSE,
+    'hideReporterOptions' => FALSE,
+    'hideAssigneeOptions' => FALSE,
+  );
+  foreach ($opts as $k => $v) {
+    $opts[$k] = isset($options[$k])? $options[$k] : $v;
+  }
+  $opts = json_encode($opts);
   
   $version = (time() - (time()%600)); // 10-min cache buster
   require_once(FRONTBACK_ABSPATH . 'snippet.inc');
