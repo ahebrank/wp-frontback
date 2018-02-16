@@ -74,7 +74,7 @@ class FrontbackSettings {
         array( $this, 'boolean_input_callback' ),
         'frontback-setting-admin',
         'frontback_options_main',
-        array( 'id' => 'login_required' )
+        array( 'id' => 'login_required', 'default' => TRUE )
       );
 
       add_settings_field(
@@ -83,7 +83,7 @@ class FrontbackSettings {
         array( $this, 'boolean_input_callback' ),
         'frontback-setting-admin',
         'frontback_options_main',
-        array( 'id' => 'hideButton' )
+        array( 'id' => 'hideButton', 'default' => FALSE )
       );
 
       add_settings_field(
@@ -92,7 +92,7 @@ class FrontbackSettings {
         array( $this, 'boolean_input_callback' ),
         'frontback-setting-admin',
         'frontback_options_main',
-        array( 'id' => 'hideReporterOptions' )
+        array( 'id' => 'hideReporterOptions', 'default' => FALSE )
       );
 
       add_settings_field(
@@ -101,7 +101,7 @@ class FrontbackSettings {
         array( $this, 'boolean_input_callback' ),
         'frontback-setting-admin',
         'frontback_options_main',
-        array( 'id' => 'hideAssigneeOptions' )
+        array( 'id' => 'hideAssigneeOptions', 'default' => FALSE )
       );
   }
   
@@ -123,7 +123,7 @@ class FrontbackSettings {
       printf(
         '<input type="checkbox" id="%s" name="frontback_options[%s]" value="1" %s />',
         $args['id'], $args['id'],
-        checked( 1, $check_state, false)
+        checked( $args['default'], $check_state, false)
       );
   }
 
