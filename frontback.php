@@ -21,9 +21,11 @@ if(!defined('FRONTBACK_ABSPATH')) {
 **/
 function frontback_add_js() {
   $options = get_option('frontback_options');
+
+  if (!is_user_logged_in() && isset($options['login_required'])) return;
+
   if (!isset($options['repo_id']) || empty($options['repo_id'])) return;
   if (!isset($options['endpoint']) || empty($options['endpoint'])) return;
-  if (!is_user_logged_in()) return;
 
   $opts = array(
     'hideButton' => FALSE,

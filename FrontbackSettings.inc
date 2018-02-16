@@ -69,6 +69,15 @@ class FrontbackSettings {
       );
 
       add_settings_field(
+        'login_required',
+        'Show only for logged-in users',
+        array( $this, 'boolean_input_callback' ),
+        'frontback-setting-admin',
+        'frontback_options_main',
+        array( 'id' => 'login_required' )
+      );
+
+      add_settings_field(
         'hideButton',
         'Hide Button',
         array( $this, 'boolean_input_callback' ),
@@ -110,10 +119,11 @@ class FrontbackSettings {
 
   public function boolean_input_callback($args)
   {
+      $check_state = isset( $this->options[$args['id']] ) ? $this->options[$args['id']] : false;
       printf(
-          '<input type="checkbox" id="%s" name="frontback_options[%s]" value="1" %s/>',
-          $args['id'], $args['id'],
-          isset( $this->options[$args['id']] ) && $this->options[$args['id']] ? 'checked="checked"' : ''
+        '<input type="checkbox" id="%s" name="frontback_options[%s]" value="1" %s />',
+        $args['id'], $args['id'],
+        checked( 1, $check_state, false)
       );
   }
 
