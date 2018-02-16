@@ -119,11 +119,11 @@ class FrontbackSettings {
 
   public function boolean_input_callback($args)
   {
-      $check_state = isset( $this->options[$args['id']] ) ? $this->options[$args['id']] : false;
+      $check_state = isset( $this->options[$args['id']] ) ? $this->options[$args['id']] : $args['default'];
       printf(
         '<input type="checkbox" id="%s" name="frontback_options[%s]" value="1" %s />',
         $args['id'], $args['id'],
-        checked( $args['default'], $check_state, false)
+        checked( TRUE, $check_state, FALSE)
       );
   }
 
