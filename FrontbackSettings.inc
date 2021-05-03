@@ -74,7 +74,7 @@ class FrontbackSettings {
         array( $this, 'boolean_input_callback' ),
         'frontback-setting-admin',
         'frontback_options_main',
-        array( 'id' => 'login_required', 'default' => TRUE )
+        array( 'id' => 'login_required', 'default' => FALSE )
       );
 
       add_settings_field(

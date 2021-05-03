@@ -16,22 +16,32 @@ if(!defined('FRONTBACK_ABSPATH')) {
   define( 'FRONTBACK_ABSPATH', plugin_dir_path( __FILE__ ) );
 }
 
+function frontback_enabled($options = null) {
+  if (!$options) {
+    $options = get_option('frontback_options');
+  }
+
+  if (!is_user_logged_in() && isset($options['login_required'])) return false;
+
+  if (!isset($options['repo_id']) || empty($options['repo_id'])) return false;
+  if (!isset($options['endpoint']) || empty($options['endpoint'])) return false;
+
+  return true;
+}
+
 /**
 * add snippet
 **/
 function frontback_add_js() {
   $options = get_option('frontback_options');
 
-  if (!is_user_logged_in() && isset($options['login_required'])) return;
-
-  if (!isset($options['repo_id']) || empty($options['repo_id'])) return;
-  if (!isset($options['endpoint']) || empty($options['endpoint'])) return;
+  if (!frontback_enabled($options)) return;
 
   $opts = array(
     'hideButton' => FALSE,
     'hideReporterOptions' => FALSE,
     'hideAssigneeOptions' => FALSE,
-    'disableQueryMonitor' => TRUE,
+    'disable_qm' => TRUE,
   );
   foreach ($opts as $k => $v) {
     $opts[$k] = isset($options[$k])? $options[$k] : $v;
@@ -52,9 +62,10 @@ if (is_admin()) {
 function frontback_query_monitor_settings(array $user_caps, array $required_caps, array $args, WP_User $user) {
 
   $options = get_option('frontback_options');
-  do_action('qm/debug', $options);
 
-  if ($options['disable_qm']) {
+  if (!frontback_enabled($options)) return $user_caps;
+
+  if (isset($options['disable_qm']) && $options['disable_qm']) {
     // Remove QM capability from all users
     $user_caps['view_query_monitor'] = false; 
   }
