@@ -103,6 +103,24 @@ class FrontbackSettings {
         'frontback_options_main',
         array( 'id' => 'hideAssigneeOptions', 'default' => FALSE )
       );
+
+      add_settings_field(
+        'disableQueryMonitor',
+        'Disable Query Monitor by Default',
+        array( $this, 'boolean_input_callback' ),
+        'frontback-setting-admin',
+        'frontback_options_main',
+        array( 'id' => 'disable_qm', 'default' => FALSE )
+      );
+
+      add_settings_field(
+          'qmAllowed', // ID
+          'Allow Query Monitor for these accounts (comma separated)', // Title
+          array( $this, 'string_input_callback' ), // Callback
+          'frontback-setting-admin', // Page
+          'frontback_options_main', // Section
+          array( 'id' => 'qm_allow_list' )
+      );
   }
   
   /**
